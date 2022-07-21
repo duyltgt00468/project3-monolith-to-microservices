@@ -5,7 +5,7 @@ metadata:
     service: backend-user
   name: backend-user
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: backend-user
@@ -15,46 +15,23 @@ spec:
         app: backend-user
     spec:
       containers:
-      - image: nghiadthp/udagram-api-user:v1
-        name: backend-user
-        imagePullPolicy: Always
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "1024Mi"
-            cpu: "500m"
+      - image: 59678892/udagram-api-user:latest
+        name: udagram-api-user 
+        imagePullPolicy: Always  
         env:
         - name: URL
-          valueFrom:
-            configMapKeyRef:
-              name: env-config
-              key: URL
+          value: http://localhost:8080
         - name: JWT_SECRET
-          valueFrom:
-            configMapKeyRef:
-              name: env-config
-              key: JWT_SECRET
+          value: hello
         - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              name: env-config
-              key: POSTGRES_DB
+          value: postgres
         - name: POSTGRES_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: env-config
-              key: POSTGRES_HOST
+          value: mydbpro3.c1ql7fgcgter.us-east-1.rds.amazonaws.com
         - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: env-secret
-              key: POSTGRES_PASSWORD
+          value: luutheduy
         - name: POSTGRES_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: env-secret
-              key: POSTGRES_USERNAME
+          value: postgres
+        - name: AWS_BUCKET
+          value: project3-196005-dev
       restartPolicy: Always
 
